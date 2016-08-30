@@ -26,8 +26,12 @@
 			function stopTimer(){
 				clearInterval(timerId);
 			}
+			
 			function tick(){
 				count++;
+				if(1000<=count){
+					count=0;
+				}
 				document.getElementById("counter").textContent=count;
 				var canvas = document.getElementById("canvas");
 				ctx = canvas.getContext("2d");
@@ -40,9 +44,9 @@
 					ctx.translate(100,100);
 					ctx.rotate(r);
 					
-					//	countに合わせて回転
+					//	countに合わせて回転させる
 					var rTimer= (Math.PI*2)/1000;
-					ctx.rotate(rTimer*count);
+					ctx.rotate(rTimer*count*rSpeed);
 					
 					ctx.beginPath();
 					ctx.moveTo(0,0);
@@ -56,6 +60,18 @@
 				ctx.beginPath();
 				ctx.arc(100,100,50,0,Math.PI*2);
 				ctx.stroke();	
+			}
+			
+			var rSpeed = 1;
+			
+			function upSpeed(){
+				document.getElementById("rSpeed").textContent=rSpeed;
+				rSpeed++;
+			}
+			
+			function downSpeed(){
+				document.getElementById("rSpeed").textContent=rSpeed;
+				rSpeed--;
 			}
 			
 			var ctx;
@@ -96,6 +112,11 @@
 		<canvas id="canvas" width="200" height="200"></canvas>
 		<button onclick="startTimer()">スタート</button>
 		<button onclick="stopTimer()">ストップ</button>
+		<p>カウンター</p>
 		<H2 id="counter"></H2>
+		<p>回転速度</p>
+		<H2 id="rSpeed"></H2>
+		<button onclick="upSpeed()">アップ</button>
+		<button onclick="downSpeed()">ダウン</button>
 	</body>
 </html>
