@@ -14,6 +14,50 @@
 		<meta name="viewport" content="width=device-width; initial-scale=1.0">
 
 		<script>
+		
+			//タイマー表示系
+			var timerId=NaN, count = 0;
+			
+			function startTimer(){
+				clearInterval(timerId);
+				timerId = setInterval(tick,33);
+			}
+			
+			function stopTimer(){
+				clearInterval(timerId);
+			}
+			function tick(){
+				count++;
+				document.getElementById("counter").textContent=count;
+				var canvas = document.getElementById("canvas");
+				ctx = canvas.getContext("2d");
+				
+				ctx.clearRect(40, 40, 120, 120);
+				
+				for(var i=0; i<12; i++){
+					ctx.save();
+					var r = Math.PI/6*i;
+					ctx.translate(100,100);
+					ctx.rotate(r);
+					
+					//	countに合わせて回転
+					var rTimer= (Math.PI*2)/1000;
+					ctx.rotate(rTimer*count);
+					
+					ctx.beginPath();
+					ctx.moveTo(0,0);
+					ctx.lineTo(0,-50);
+					ctx.stroke();
+					
+					ctx.restore();
+				}
+				
+				//	円を表示
+				ctx.beginPath();
+				ctx.arc(100,100,50,0,Math.PI*2);
+				ctx.stroke();	
+			}
+			
 			var ctx;
 			function init(){
 				var canvas = document.getElementById("canvas");
@@ -24,6 +68,7 @@
 					var r = Math.PI/6*i;
 					ctx.translate(100,100);
 					ctx.rotate(r);
+					
 					
 					ctx.beginPath();
 					ctx.moveTo(0,0);
@@ -39,20 +84,7 @@
 				ctx.stroke();	
 			}
 			
-			var timerId=NaN, count = 0;
 			
-			function startTimer(){
-				clearInterval(timerId);
-				timerId = setInterval(tick,1000);
-			}
-			
-			function stopTimer(){
-				clearInterval(timerId);
-			}
-			function tick(){
-				count++;
-				document.getElementById("counter").textContent=count;
-			}
 			
 		</script>
 		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
