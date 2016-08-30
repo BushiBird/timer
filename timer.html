@@ -9,7 +9,7 @@
 
 		<title>HTML</title>
 		<meta name="description" content="">
-		<meta name="author" content="石井 明日香">
+		<meta name="author" content="中田 明日香">
 
 		<meta name="viewport" content="width=device-width; initial-scale=1.0">
 
@@ -33,17 +33,27 @@
 					ctx.restore();
 				}
 
+				//	円を表示
 				ctx.beginPath();
 				ctx.arc(100,100,50,0,Math.PI*2);
-				ctx.stroke();
-				
-				ctx.restore();
-
-				ctx.beginPath();
-				ctx.moveTo(0,-100);
-				ctx.lineTo(0,-100);
-				ctx.stroke();
+				ctx.stroke();	
 			}
+			
+			var timerId=NaN, count = 0;
+			
+			function startTimer(){
+				clearInterval(timerId);
+				timerId = setInterval(tick,1000);
+			}
+			
+			function stopTimer(){
+				clearInterval(timerId);
+			}
+			function tick(){
+				count++;
+				document.getElementById("counter").textContent=count;
+			}
+			
 		</script>
 		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
 		<link rel="shortcut icon" href="/favicon.ico">
@@ -52,28 +62,8 @@
 
 	<body onload="init()">
 		<canvas id="canvas" width="200" height="200"></canvas>
-		<div>
-			<header>
-				<h1>HTML</h1>
-			</header>
-			<nav>
-				<p>
-					<a href="/">Home</a>
-				</p>
-				<p>
-					<a href="/contact">Contact</a>
-				</p>
-			</nav>
-
-			<div>
-
-			</div>
-
-			<footer>
-				<p>
-					&copy; Copyright  by 石井 明日香
-				</p>
-			</footer>
-		</div>
+		<button onclick="startTimer()">スタート</button>
+		<button onclick="stopTimer()">ストップ</button>
+		<H2 id="counter"></H2>
 	</body>
 </html>
